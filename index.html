@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Green Zone Nature Ayurveda | 3D Experience</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <title>Green Zone Nature Ayurveda | Premium Holistic Care</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #1B4332;
             --accent: #74C69D;
             --cream: #F8F9FA;
-            --text: #2D6A4F;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.8);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -19,161 +20,216 @@
             background: var(--cream); 
             color: var(--primary);
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* 3D Scene Container */
+        /* --- Top Bar & Header --- */
+        .top-bar {
+            background: var(--primary);
+            color: white;
+            padding: 8px 5%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            align-items: center;
+        }
+        .social-links a { color: white; margin-right: 15px; text-decoration: none; opacity: 0.8; }
+        .currency-select { background: none; color: white; border: 1px solid rgba(255,255,255,0.3); padding: 2px 5px; border-radius: 4px; }
+
+        header {
+            background: var(--white);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+        nav a { text-decoration: none; color: var(--primary); margin-left: 25px; font-weight: 600; font-size: 0.9rem; }
+        .cart-icon { position: relative; }
+        .cart-count { background: var(--accent); color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.7rem; position: absolute; top: -10px; right: -10px; }
+
+        /* --- 3D Hero Section --- */
         .scene {
             perspective: 1000px;
-            height: 100vh;
+            height: 90vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
             background: radial-gradient(circle, #d8f3dc 0%, #f8f9fa 100%);
+            overflow: hidden;
         }
-
         .hero-3d {
             transform-style: preserve-3d;
-            position: relative;
-            width: 80%;
+            width: 85%;
             display: flex;
             align-items: center;
             justify-content: space-between;
             transition: transform 0.1s ease-out;
         }
+        .hero-text h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--primary); margin-bottom: 1rem; }
+        .floating-bottle { width: 350px; filter: drop-shadow(30px 40px 20px rgba(0,0,0,0.15)); animation: float 5s ease-in-out infinite; }
 
-        /* Floating Elements */
-        .floating-bottle {
-            width: 300px;
-            filter: drop-shadow(20px 30px 20px rgba(0,0,0,0.2));
-            transform: translateZ(50px);
-            animation: float 4s ease-in-out infinite;
-        }
-
-        .leaf {
-            position: absolute;
-            width: 80px;
-            opacity: 0.6;
-            z-index: -1;
-        }
-
-        /* Typography */
-        .content {
-            max-width: 500px;
-            transform: translateZ(30px);
-        }
-
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-        }
-
-        .btn {
-            padding: 15px 35px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .btn:hover { background: var(--accent); transform: scale(1.05); }
-
-        /* Scroll Animation Sections */
-        .section {
-            padding: 100px 10%;
-            min-height: 60vh;
-            display: flex;
-            gap: 50px;
-            align-items: center;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: 1s all ease-out;
-        }
-
-        .section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .card-3d {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            padding: 40px;
+        /* --- Product Grid --- */
+        .section-title { text-align: center; font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 40px; width: 100%; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 50px 10%; }
+        .product-card {
+            background: var(--white);
+            padding: 25px;
             border-radius: 20px;
+            text-align: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border: 1px solid rgba(255,255,255,0.3);
-            flex: 1;
+            transition: 0.4s;
+            border: 1px solid transparent;
         }
+        .product-card:hover { transform: translateY(-10px) scale(1.02); border-color: var(--accent); }
+        .price { font-weight: bold; color: var(--text); display: block; margin: 15px 0; }
+        .add-btn { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%; }
+
+        /* --- FAQ Accordion --- */
+        .faq-container { background: #e9f5ee; padding: 80px 10%; }
+        details { background: var(--white); margin-bottom: 15px; padding: 20px; border-radius: 10px; cursor: pointer; }
+        summary { font-weight: 600; list-style: none; display: flex; justify-content: space-between; }
+        summary::after { content: '+'; color: var(--accent); }
+        details[open] summary::after { content: '-'; }
+
+        /* --- Footer --- */
+        footer { background: var(--primary); color: white; padding: 60px 10% 20px; text-align: center; }
+        .footer-links { margin: 30px 0; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
+        .footer-links a { color: #ccc; text-decoration: none; margin: 0 15px; font-size: 0.8rem; }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0) translateZ(50px) rotate(0deg); }
-            50% { transform: translateY(-20px) translateZ(50px) rotate(2deg); }
+            0%, 100% { transform: translateY(0) translateZ(80px); }
+            50% { transform: translateY(-30px) translateZ(80px); }
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .hero-3d { flex-direction: column-reverse; text-align: center; }
-            h1 { font-size: 2.5rem; }
-            .floating-bottle { width: 200px; margin-bottom: 30px; }
+            .hero-text h1 { font-size: 2.2rem; }
+            .top-bar { flex-direction: column; gap: 10px; }
         }
     </style>
 </head>
 <body>
 
-    <section class="scene" id="home">
+    <div class="top-bar">
+        <div class="social-links">
+            <a href="#">Facebook</a> <a href="#">Instagram</a> <a href="#">YouTube</a> <a href="#">Twitter</a>
+        </div>
+        <div>
+            <span>Call Us: 8962623737</span> | 
+            <select class="currency-select">
+                <option>INR</option><option>USD</option><option>EUR</option><option>GBP</option>
+            </select>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo"><strong>GREEN ZONE</strong></div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Our Therapy</a>
+            <a href="#">Our Products</a>
+            <a href="#">About Us</a>
+            <a href="#">Contact</a>
+            <a href="#" class="cart-icon">🛒 <span class="cart-count">0</span></a>
+        </nav>
+    </header>
+
+    <section class="scene">
         <div class="hero-3d" id="hero">
-            <div class="content">
-                <h1>Pure Nature,<br>Ancient Wisdom.</h1>
-                <p>Experience the healing power of Green Zone Nature Ayurveda. Holistic wellness crafted for the modern soul.</p>
+            <div class="hero-text">
+                <h1>Kidney, Liver <br>& Sugar Care</h1>
+                <p>Natural solutions for chronic wellness. Based on 5,000 years of Ayurvedic wisdom.</p>
                 <br>
-                <button class="btn">Explore Treatments</button>
+                <button class="add-btn" style="width: auto; padding: 15px 40px;">Book Consultation</button>
             </div>
-            
-            <img src="https://cdn-icons-png.flaticon.com/512/3014/3014532.png" alt="Ayurvedic Product" class="floating-bottle">
-            
-            <img src="https://cdn-icons-png.flaticon.com/512/892/892926.png" class="leaf" style="top:-10%; left:20%; transform: rotate(45deg);">
-            <img src="https://cdn-icons-png.flaticon.com/512/892/892926.png" class="leaf" style="bottom:10%; right:10%; transform: rotate(-20deg);">
+            <img src="https://cdn-icons-png.flaticon.com/512/3014/3014532.png" alt="GZ-VED RAS" class="floating-bottle">
         </div>
     </section>
 
-    <section class="section">
-        <div class="card-3d">
-            <h3>Panchakarma Detox</h3>
-            <p>A comprehensive Ayurvedic therapy aimed at detoxifying and rejuvenating the body through five primary procedures.</p>
-        </div>
-        <div class="card-3d">
-            <h3>Natural Healing</h3>
-            <p>Our practitioners are highly educated and experienced in delivering traditional herbal treatments safely.</p>
+    <section style="padding: 80px 0;">
+        <h2 class="section-title">Our Ayurvedic Products</h2>
+        <div class="grid">
+            <div class="product-card">
+                <h3>GZ-VED RAS (20ml)</h3>
+                <span class="price">Rs. 1,499.00</span>
+                <button class="add-btn">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <h3>GZ- MUTRA VARDHAK</h3>
+                <span class="price">Rs. 1,499.00</span>
+                <button class="add-btn">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <h3>GZ-LX (Detox)</h3>
+                <span class="price">Rs. 1,499.00</span>
+                <button class="add-btn">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <h3>GZ-VK KASHAYA</h3>
+                <span class="price">Rs. 1,299.00</span>
+                <button class="add-btn">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <h3>GZ-VDV VATI</h3>
+                <span class="price">Rs. 1,050.00</span>
+                <button class="add-btn">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <h3>GZ-SG (SHIVA GUTIKA)</h3>
+                <span class="price">Rs. 1,599.00</span>
+                <button class="add-btn">Add to Cart</button>
+            </div>
         </div>
     </section>
+
+    <section class="faq-container">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <details>
+            <summary>What is Ayurveda?</summary>
+            <p>Ayurveda is an ancient holistic treatment technique that began in India more than 5,000 years ago. It aims to create balance and harmony in the body, mind, and spirit.</p>
+        </details>
+        <details>
+            <summary>What is Panchakarma therapy?</summary>
+            <p>Panchakarma is an Ayurvedic detoxification therapy that aims to remove toxins while restoring balance through five primary procedures like Vaman and Virechan.</p>
+        </details>
+        <details>
+            <summary>Are your practitioners qualified?</summary>
+            <p>Yes, our practitioners are highly educated and experienced Ayurvedic doctors at our Gurgaon center.</p>
+        </details>
+        <details>
+            <summary>Do you offer online consultations?</summary>
+            <p>Yes, we provide online consultations for those unable to visit our clinic in person via GreenZone Nature Ayurveda.</p>
+        </details>
+    </section>
+
+    <footer>
+        <p><strong>Green Zone Nature Ayurveda</strong></p>
+        <p style="max-width: 700px; margin: 20px auto; font-size: 0.9rem; opacity: 0.8;">
+            Dedicated to providing holistic wellness solutions based on ancient methods. Explore our range of therapies, treatments, and products.
+        </p>
+        <p>Email: greenzoneayurveda@gmail.com | Call: 8962623737</p>
+        
+        <div class="footer-links">
+            <a href="#">Search</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms and Conditions</a>
+            <a href="#">Refund Policy</a>
+            <a href="#">Shipping</a>
+        </div>
+        <p style="font-size: 0.7rem; opacity: 0.5;">Copyright @2024 Green Zone Nature Ayurveda</p>
+    </footer>
 
     <script>
-        // 1. Mouse Move 3D Effect for Hero
+        // 3D Tilt Effect
         const hero = document.getElementById('hero');
         document.addEventListener('mousemove', (e) => {
-            let xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-            let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            let xAxis = (window.innerWidth / 2 - e.pageX) / 30;
+            let yAxis = (window.innerHeight / 2 - e.pageY) / 30;
             hero.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-        });
-
-        // 2. Intersection Observer for Scroll Animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.section').forEach(section => {
-            observer.observe(section);
         });
     </script>
 </body>
